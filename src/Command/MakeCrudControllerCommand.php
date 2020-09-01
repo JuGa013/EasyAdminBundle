@@ -2,7 +2,7 @@
 
 namespace EasyCorp\Bundle\EasyAdminBundle\Command;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use EasyCorp\Bundle\EasyAdminBundle\Maker\ClassMaker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,7 +61,7 @@ class MakeCrudControllerCommand extends Command
 
         $guessedNamespace = u($controllerDir)->equalsTo('src')
             ? 'App'
-            : u($controllerDir)->replace('/', ' ')->replace('\\', ' ')->replace('src ', 'app ')->title(true)->replace(' ', '\\');
+            : u($controllerDir)->replace('/', ' ')->replace('\\', ' ')->replace('src ', 'app ')->title(true)->replace(' ', '\\')->trimEnd(DIRECTORY_SEPARATOR);
         $namespace = $io->ask('Namespace of the generated CRUD controller', $guessedNamespace, static function(string $namespace) {
             return u($namespace)->replace('/', '\\')->toString();
         });
